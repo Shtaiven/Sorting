@@ -28,8 +28,17 @@ int main()
 	cout << "Enter filename: ";
 	getline(cin, filename);
 
-    ifstream fin(filename); // make this variable so you can input any file name
-    vector<double> vec;
+	// Open the file
+    ifstream fin(filename);
+
+    // Error Handler
+    if (fin.fail()) {
+    	cerr << "Error opening file" << endl;
+    	exit(1);
+    }
+
+	// Initialize the vector which will store the unsorted file
+    vector<double> vec; 
  
     // Input from file into vector
     copy(istream_iterator<double>(fin), istream_iterator<double>(), back_inserter(vec));
