@@ -74,7 +74,7 @@ namespace quicksort
 		int pivotPoint, newPivotPoint;
 		if( left < right )
 		{//If the list has at least 2 more items, keep running quicksort.
-			pivotPoint = items.size()-1;//Get the median of the left, middle and right.
+			pivotPoint = items.size()-1;//Set pivotPoint as rightmost element.
 			newPivotPoint = partition( items, left, right, pivotPoint );
 			quickSortRight( items, left, newPivotPoint - 1 );
 			quickSortRight( items, newPivotPoint + 1, right );
