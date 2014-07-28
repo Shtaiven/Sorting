@@ -2,7 +2,7 @@
 #define Quicksort_CPP
 
 #include <vector>
-namespace QuickSort
+namespace quicksort
 {
 	template <class T> int getMedianIndex( std::vector<T> &items, int firstIndex, int secondIndex, int thirdIndex )
 	{//Returns the index of the median value of the values at the three indexes or thirdIndex.
@@ -56,15 +56,53 @@ namespace QuickSort
 		return newIndex;
 	}
 
-	template <class T> void quickSort( std::vector<T> &items, int left, int right )
+	template <class T> void quickSortMedian( std::vector<T> &items, int left, int right )
 	{//Main quicksort function. Call this to sort a list of items.
 		int pivotPoint, newPivotPoint;
 		if( left < right )
 		{//If the list has at least 2 more items, keep running quicksort.
 			pivotPoint = getMedianIndex( items, left, (left+right)/2, right );//Get the median of the left, middle and right.
 			newPivotPoint = partition( items, left, right, pivotPoint );
-			quickSort( items, left, newPivotPoint - 1 );
-			quickSort( items, newPivotPoint + 1, right );
+			quickSortMedian( items, left, newPivotPoint - 1 );
+			quickSortMedian( items, newPivotPoint + 1, right );
+		}
+	}
+
+	template <class T> void quickSortRight( std::vector<T> &items, int left, int right )
+	{//Main quicksort function. Call this to sort a list of items.
+		int pivotPoint, newPivotPoint;
+		if( left < right )
+		{//If the list has at least 2 more items, keep running quicksort.
+			pivotPoint = items.size()-1;//Get the median of the left, middle and right.
+			newPivotPoint = partition( items, left, right, pivotPoint );
+			quickSortRight( items, left, newPivotPoint - 1 );
+			quickSortRight( items, newPivotPoint + 1, right );
+		}
+	}
+
+	template <class T> void quickSortInsert( std::vector<T> &items, int left, int right )
+	{//Main quicksort function. Call this to sort a list of items.
+		int pivotPoint, newPivotPoint;
+		if( (right-left) > 24 )
+		{//If the list has at least 2 more items, keep running quicksort.
+			pivotPoint = getMedianIndex( items, left, (left+right)/2, right );//Get the median of the left, middle and right.
+			newPivotPoint = partition( items, left, right, pivotPoint );
+			quickSortInsert( items, left, newPivotPoint - 1 );
+			quickSortInsert( items, newPivotPoint + 1, right );
+		}
+		else
+		{//Perform an insertionsort if subfiles are 25 items or less.
+		    int i, j, value;
+		 
+		    for(i = left; i <= right; i++)
+		    {
+		        value = items[i];
+		        for (j = i - 1; j >= 0 && items[j] > value; j--)
+		        {
+		            items[j + 1] = items[j];
+		        }
+		        items[j + 1] = value;
+		    }
 		}
 	}
 }

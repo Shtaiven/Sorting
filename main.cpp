@@ -46,21 +46,39 @@ int main()
     // Initialize clock variables
     chrono::time_point<chrono::system_clock> start, end;
 
-	// Quicksort
-	vector<double> quicksort_result = vec; 
+	// Quicksort using rightmost key
+	vector<double> quicksortR_result = vec; 
 
 	start = chrono::system_clock::now(); // set beginning of system clock
-	QuickSort::quickSort<double>(quicksort_result, 0, vec.size()-1);
+	quicksort::quickSortRight<double>(quicksortR_result, 0, vec.size()-1);
 	end = chrono::system_clock::now(); // set end of system clock
 	chrono::duration<double> elapsed_seconds = end-start; // Initialize elapsed_seconds
-	cout << "Quicksort time:          " << elapsed_seconds.count() << "s\n";
+	cout << "Quicksort (right pivot) time:                            " << elapsed_seconds.count() << "s\n";
+
+	// Quicksort using median key of 3
+	vector<double> quicksortM_result = vec; 
+
+	start = chrono::system_clock::now();
+	quicksort::quickSortMedian<double>(quicksortM_result, 0, vec.size()-1);
+	end = chrono::system_clock::now();
+	elapsed_seconds = end-start;
+	cout << "Quicksort (median pivot) time:                           " << elapsed_seconds.count() << "s\n";
+
+	// Quicksort using median key of 3 using Insertionsort for subfiles under size of 25
+	vector<double> quicksortMI_result = vec; 
+
+	start = chrono::system_clock::now();
+	quicksort::quickSortInsert<double>(quicksortMI_result, 0, vec.size()-1);
+	end = chrono::system_clock::now();
+	elapsed_seconds = end-start;
+	cout << "Quicksort (median pivot w/ Insertionsort) time:          " << elapsed_seconds.count() << "s\n";
 
 	// Mergesort
 	start = chrono::system_clock::now();
 	vector<double> mergesort_result = mergesort(vec);
 	end = chrono::system_clock::now();
 	elapsed_seconds = end-start;
-	cout << "Mergesort time:          " << elapsed_seconds.count() << "s\n";
+	cout << "Mergesort time:                                          " << elapsed_seconds.count() << "s\n";
 
 	// Heapsort
 	vector<double> heapsort_result = vec;
@@ -69,7 +87,7 @@ int main()
 	heapSort(heapsort_result.begin(), heapsort_result.end());
 	end = chrono::system_clock::now();
 	elapsed_seconds = end-start;
-	cout << "Heapsort time:           " << elapsed_seconds.count() << "s\n";
+	cout << "Heapsort time:                                           " << elapsed_seconds.count() << "s\n";
 
 	// Insertionsort
 	vector<double> insertionsort_result = vec;
@@ -78,7 +96,7 @@ int main()
 	insertionSort(insertionsort_result,insertionsort_result.size()-1);
 	end = chrono::system_clock::now();
 	elapsed_seconds = end-start;
-	cout << "Insertionsort time:      " << elapsed_seconds.count() << "s\n";
+	cout << "Insertionsort time:                                      " << elapsed_seconds.count() << "s\n";
 
 	// Shellsort
 	vector<double> shellsort_result = vec;
@@ -87,7 +105,7 @@ int main()
 	shellSort(shellsort_result,shellsort_result.size()-1);
 	end = chrono::system_clock::now();
 	elapsed_seconds = end-start;
-	cout << "Shellsort time:          " << elapsed_seconds.count() << "s\n";
+	cout << "Shellsort time:                                          " << elapsed_seconds.count() << "s\n";
 
 	return 0;
 }
