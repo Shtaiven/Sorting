@@ -5,7 +5,6 @@ By Steven Eisinger
 Sources:
 http://en.wikibooks.org/wiki/Algorithm_Implementation
 GitHub user luigi1015 for quicksort.cpp
-
 */
 #include "quicksort.cpp"
 #include "mergesort.cpp"
@@ -45,6 +44,25 @@ int main()
 
     // Initialize clock variables
     chrono::time_point<chrono::system_clock> start, end;
+    chrono::duration<double> elapsed_seconds;
+
+	// Insertionsort
+	vector<double> insertionsort_result = vec;
+
+	start = chrono::system_clock::now(); // set beginning of system clock
+	insertionSort(insertionsort_result,insertionsort_result.size()-1);
+	end = chrono::system_clock::now(); // set end of system clock
+	elapsed_seconds = end-start;
+	cout << "Insertionsort time:                                      " << elapsed_seconds.count() << "s\n";
+
+	// Shellsort
+	vector<double> shellsort_result = vec;
+
+	start = chrono::system_clock::now(); // set beginning of system clock
+	shellSort(shellsort_result,shellsort_result.size()-1);
+	end = chrono::system_clock::now(); // set end of system clock
+	elapsed_seconds = end-start;
+	cout << "Shellsort time:                                          " << elapsed_seconds.count() << "s\n";
 
 	// Quicksort using rightmost key
 	vector<double> quicksortR_result = vec; 
@@ -52,60 +70,42 @@ int main()
 	start = chrono::system_clock::now(); // set beginning of system clock
 	quicksort::quickSortRight<double>(quicksortR_result, 0, vec.size()-1);
 	end = chrono::system_clock::now(); // set end of system clock
-	chrono::duration<double> elapsed_seconds = end-start; // Initialize elapsed_seconds
+	elapsed_seconds = end-start;
 	cout << "Quicksort (right pivot) time:                            " << elapsed_seconds.count() << "s\n";
 
 	// Quicksort using median key of 3
 	vector<double> quicksortM_result = vec; 
 
-	start = chrono::system_clock::now();
+	start = chrono::system_clock::now(); // set beginning of system clock
 	quicksort::quickSortMedian<double>(quicksortM_result, 0, vec.size()-1);
-	end = chrono::system_clock::now();
+	end = chrono::system_clock::now(); // set end of system clock
 	elapsed_seconds = end-start;
 	cout << "Quicksort (median pivot) time:                           " << elapsed_seconds.count() << "s\n";
 
 	// Quicksort using median key of 3 using Insertionsort for subfiles under size of 25
 	vector<double> quicksortMI_result = vec; 
 
-	start = chrono::system_clock::now();
+	start = chrono::system_clock::now(); // set beginning of system clock
 	quicksort::quickSortInsert<double>(quicksortMI_result, 0, vec.size()-1);
-	end = chrono::system_clock::now();
+	end = chrono::system_clock::now(); // set end of system clock
 	elapsed_seconds = end-start;
 	cout << "Quicksort (median pivot w/ Insertionsort) time:          " << elapsed_seconds.count() << "s\n";
 
 	// Mergesort
-	start = chrono::system_clock::now();
+	start = chrono::system_clock::now(); // set beginning of system clock
 	vector<double> mergesort_result = mergesort(vec);
-	end = chrono::system_clock::now();
+	end = chrono::system_clock::now(); // set end of system clock
 	elapsed_seconds = end-start;
 	cout << "Mergesort time:                                          " << elapsed_seconds.count() << "s\n";
 
 	// Heapsort
 	vector<double> heapsort_result = vec;
 
-	start = chrono::system_clock::now();
+	start = chrono::system_clock::now(); // set beginning of system clock
 	heapSort(heapsort_result.begin(), heapsort_result.end());
-	end = chrono::system_clock::now();
+	end = chrono::system_clock::now(); // set end of system clock
 	elapsed_seconds = end-start;
 	cout << "Heapsort time:                                           " << elapsed_seconds.count() << "s\n";
-
-	// Insertionsort
-	vector<double> insertionsort_result = vec;
-
-	start = chrono::system_clock::now();
-	insertionSort(insertionsort_result,insertionsort_result.size()-1);
-	end = chrono::system_clock::now();
-	elapsed_seconds = end-start;
-	cout << "Insertionsort time:                                      " << elapsed_seconds.count() << "s\n";
-
-	// Shellsort
-	vector<double> shellsort_result = vec;
-
-	start = chrono::system_clock::now();
-	shellSort(shellsort_result,shellsort_result.size()-1);
-	end = chrono::system_clock::now();
-	elapsed_seconds = end-start;
-	cout << "Shellsort time:                                          " << elapsed_seconds.count() << "s\n";
 
 	return 0;
 }
